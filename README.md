@@ -4,7 +4,7 @@
 
 1. Last ned git dersom dere ikke har det.
 2. Gå til en mappe dere vil ha prosjektet lagret lokalt.
-3. $git clone https://github.com/amunium/DCST1001-Linux-project.git
+3. $ git clone https://github.com/amunium/DCST1001-Linux-project.git
 4. Gå inn og skriv hva enn dere vil, vi jobber alle i "main"-branch.
 
 ### Hvordan lagre det dere har gjort og laste det opp slik at alle kan se det:
