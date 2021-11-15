@@ -1,0 +1,1 @@
+# Denne filen har en loop som periodisk sjekker database.db om noen av de lagrede ipadressene er for gamle og fjerner dem
