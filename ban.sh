@@ -1,11 +1,18 @@
 # Denne kalles med en ipadresse som skal bli bannet som argument (sjekk "calling bash file with argument") og lagrer dette med timestamp i database.db
 
-# Henter argumentet den henter fra
+# Get ip address from arg
 ipAdress=$1
+echo "Starting ban of: "$ipAdress
 
-echo $ipAdress
+#Ban ip address using iptables
 
 
+#add ip address to database.db
+tid=$(date +%s)
+echo $ipAdress","$tid >> database.db
 
+#report completed banning
+echo "Completed ban of: "$ipAdress
 
-echo $ipAdress >> database.db
+# Exit without error
+exit 0
