@@ -5,14 +5,16 @@ ipAdress=$1
 echo "Starting ban of: "$ipAdress
 
 #Ban ip address using iptables
-
+sudo iptables -A INPUT -s $ipAdress -j DROP
 
 #add ip address to database.db
 tid=$(date +%s)
 echo $ipAdress","$tid >> database.db
 
-#report completed banning
-echo "Completed ban of: "$ipAdress
+#report completed banning and exit without error
+echo "New IP banned: "$ipAdress
 
-# Exit without error
+echo "Reporting on banned ip addresses:"
+sudo iptables -L INPUT -v -n
+
 exit 0
