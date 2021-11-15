@@ -1,5 +1,7 @@
 # DCST1001-Linux-project
 
+miniban.db blir aldri lastet opp hit (database filen altså). Dette er for å gjøre det lettere å drive egen testing underveis. Gjerne lag den selv dersom det trengs.
+
 ### Oppskrift for å skaffe dette repoet ned på deres PC:
 
 1. Last ned git dersom dere ikke har det.
