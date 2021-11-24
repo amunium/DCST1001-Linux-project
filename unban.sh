@@ -9,36 +9,35 @@
 
 while true
 do 
+    clear
     # check if any ip is 10 min old (600 sec)
     echo "Checking if any banned IP address is too old"
     nowTime=$(date +%s)
     oldTime=$((nowTime - 600))
-    echo "Time when checking: "$nowTime
+    echo "Time when check: "$nowTime
     # grep for å finne tid spesifikt: grep [0-9]{4,} <her setter du inn det du skal sjekke>
     
-    # TODO: for loop
+    database="miniban.db"
+
     lineNum=1
     while read line
     do  
-        echo $line
         # Get IP address from line
         ipAdress=${line%,*}
         # Get ipTime from line
         ipTime=${line#*,}
-        #ipTime=$(grep "[0-9]{4,}" "$line")
-        echo $ipTime
-        echo $oldTime
+        echo $line
         if [ $ipTime -le $oldTime ]
         then
             echo "Removed ban on: "$ipAdress
-            #iptables -D INPUT -s $ipAdress -j DROP
+            iptables -D INPUT -s $ipAdress -j DROP
             #TODO remove from database
-            $(sed -i "/$lineNum/d" miniban.db)
+            eval $(sed -i "/$lineNum/d" miniban.db)
 
         fi
         lineNum=$((lineNum+1))
-    done < "miniban.db"
+    done < $database
 
     # Waits some time
-    sleep 1
+    sleep 3
 done
