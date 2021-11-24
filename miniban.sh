@@ -1,6 +1,6 @@
 # Denne skal lytte etter ssh tilkoblinger og kalle "ban.sh" når den oppdager 3 fails
 
-trap "./unban" EXIT
+trap "./unban.sh" EXIT
 
 while(true)
     journalctl -u ssh

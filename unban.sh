@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Denne filen har en loop som periodisk sjekker database.db om noen av de lagrede ipadressene er for gamle og fjerner dem
 
 
@@ -7,25 +9,36 @@
 
 while true
 do 
-    # måles i sekunder
-    sleep 1
     # check if any ip is 10 min old (600 sec)
     echo "Checking if any banned IP address is too old"
-    
-    time = $(date +%s)
-
+    nowTime=$(date +%s)
+    oldTime=$((nowTime - 600))
+    echo "Time when checking: "$nowTime
     # grep for å finne tid spesifikt: grep [0-9]{4,} <her setter du inn det du skal sjekke>
-
+    
     # TODO: for loop
-    for each line in miniban.db 
-        ipTime = #TODO
-        oldTime = $((time - 600))
-
-
-        if [$newTime -le $oldTime ]
+    lineNum=1
+    while read line
+    do  
+        echo $line
+        # Get IP address from line
+        ipAdress=${line%,*}
+        # Get ipTime from line
+        ipTime=${line#*,}
+        #ipTime=$(grep "[0-9]{4,}" "$line")
+        echo $ipTime
+        echo $oldTime
+        if [ $ipTime -le $oldTime ]
         then
             echo "Removed ban on: "$ipAdress
-            iptables -D INPUT -s $ipAdress -j DROP
-            # TODO remove from database
+            #iptables -D INPUT -s $ipAdress -j DROP
+            #TODO remove from database
+            $(sed -i "/$lineNum/d" miniban.db)
+
         fi
+        lineNum=$((lineNum+1))
+    done < "miniban.db"
+
+    # Waits some time
+    sleep 1
 done
