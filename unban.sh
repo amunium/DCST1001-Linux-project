@@ -11,7 +11,6 @@ while true
 do 
     clear
     # Get time
-    echo "Checking if any banned IP address is too old"
     nowTime=$(date +%s)
     oldTime=$((nowTime - 600))
     
@@ -27,7 +26,7 @@ do
         # Check if ban is old
         if [ $ipTime -le $oldTime ]
         then
-            echo "Removed ban on: "$ipAdress
+            echo "Removed ban on: "$ipAdress >> journal.txt
             iptables -D INPUT -s $ipAdress -j DROP
             eval $(sed -i "/$lineNum/d" miniban.db)
         fi
