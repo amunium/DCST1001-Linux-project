@@ -2,9 +2,18 @@
 
 clear
 
-# trap "./unban.sh" EXIT
+# When killed will kill all child processes and delete tempfile
+trap finish EXIT
 
+function finish {
+	rm -rf "ipaddresses.txt"
+	kill 0
+}
 
+# Start unban.sh as daemon
+./unban.sh &
+
+# setup journal.txt
 now=$(date "+%Y-%m-%d %H:%M:%S")
 
 rm journal.txt
@@ -15,23 +24,29 @@ num=1
 
 echo "" > ipaddresses.txt
 
+# Start main loop
 for (( ; ; ))
 do
 
 
 # ------------------------------------------------Going in to the loop---------------------------------------------------------------------- #
 
+# Three different variables. "ip" is just a random ip address so "iprep" has a value to search for in journal.txt.
 ip=00.00.00.00
 
+# "iprep" counts the number of failed attempts from the last registered ip address
 iprep=$(grep -oc $ip journal.txt)
 
+# "ipnum" counts the number of ip addresses in journal.txt
 ipnum=$(egrep -oc "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" journal.txt)
 
 
 while [ $iprep -le 2 ]
 do
+	# "VAR" is used for the loading animation in the script. VAR cycles through the values {0,1,2} and run search 3,2,1 in this order. 
 VAR=0
 
+	# "num" is just a number that increases together with "ipnum" so when "ipnum" increases the script will jump out of the while loop.
                       while (( $ipnum != $num ))
         do
        
@@ -119,9 +134,10 @@ iprep=$(grep -oc $ip journal.txt)
 done #outer
 
 echo "--> Banning "$ip >> ipaddresses.txt
-
+./ban.sh $ip
 
 
 
 
 done
+

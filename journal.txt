@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -- Logs begin at Fri 2021-06-18 03:00:25 CEST, end at Wed 2021-11-24 19:51:41 CET. --
 -- No entries --
 nov. 24 19:52:21 crowdecay sshd[71680]: Failed password for crow from 10.0.0.23 port 60466 ssh2
@@ -10,3 +11,6 @@ nov. 24 19:53:18 crowdecay sshd[72575]: Failed password for crow from 10.0.0.8 p
 nov. 24 19:54:02 crowdecay sshd[72575]: Failed password for crow from 10.0.0.8 port 55905 ssh2
 nov. 24 19:54:11 crowdecay sshd[72575]: Failed password for crow from 10.0.0.8 port 55905 ssh2
 nov. 24 19:54:21 crowdecay sshd[73435]: Failed password for crow from 10.0.0.8 port 55908 ssh2
+=======
+nov. 24 12:46:40 crowdecay sshd[358995]: Failed password for crow from 10.22.3.37 port 51249 ssh2
+>>>>>>> 433599f1fd6d87d97dd4982071c0d5ee735d156e
