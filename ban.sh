@@ -1,16 +1,30 @@
 # Denne kalles med en ipadresse som skal bli bannet som argument (sjekk "calling bash file with argument") og lagrer dette med timestamp i database.db
 # $1 er ipadressen som skal bli bannet
 
-#Ban ip address using iptables
-iptables -A INPUT -s $1 -j DROP
 
-#add ip address to database.db
-echo $1","$(date +%s) >> miniban.db
+# Check if whitelist.db containes ip
+white = false
+while read line
+do
+    if [ $line = $1 ]
+    then
+        #Say that it is indeed whitelisted
+        echo "--> Ban failed. $1 is whitelisted" >> journal.txt
+        white = true
+    fi
+then
 
-#report completed banning and exit without error
-echo "New IP banned: "$1
+if [ white = false ]
+then
+    # If ip not whitelisted, will be banned.
+    #Ban ip address using iptables
+    iptables -A INPUT -s $1 -j DROP
 
-echo "Reporting on banned ip addresses:"
-iptables -L INPUT -v -n
+    #add ip address to database.db
+    echo $1","$(date +%s) >> miniban.db
 
-exit 0
+    # report completed banning and exit without error
+    # echo "New IP banned: "$1
+fi
+
+# Reporting on all currently banned ip addresses: iptables -L INPUT -v -n
