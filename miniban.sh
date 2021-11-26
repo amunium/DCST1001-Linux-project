@@ -7,12 +7,13 @@ trap finish EXIT
 
 function finish {
 	rm -rf "ipaddresses.txt"
-    rm -rf "lockfile.lck"
+	rm -rf "lockfile.lck"
+	rm -rf "nohup.out"
 	kill 0
 }
 
 # Start unban.sh as daemon
-./unban.sh &
+nohup ./unban.sh &
 
 # setup journal.txt
 now=$(date "+%Y-%m-%d %H:%M:%S")
@@ -42,7 +43,7 @@ iprep=$(grep -oc $ip journal.txt)
 ipnum=$(egrep -oc "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}" journal.txt)
 
 
-while [ $iprep -le 2 ]
+while [ $(($iprep % 3)) != 0 -o $iprep -eq 0 ]
 do
 	# "VAR" is used for the loading animation in the script. VAR cycles through the values {0,1,2} and run search 3,2,1 in this order. 
 VAR=0
@@ -135,7 +136,7 @@ iprep=$(grep -oc $ip journal.txt)
 done #outer
 
 echo "--> Banning "$ip >> ipaddresses.txt
-./ban.sh $ip
+./ban.sh $ip &
 
 
 

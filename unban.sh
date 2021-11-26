@@ -12,7 +12,7 @@ do
     clear
     # Get time
     nowTime=$(date +%s)
-    oldTime=$((nowTime - 600))
+    oldTime=$((nowTime - 10))
     
     database="miniban.db"
 
@@ -26,7 +26,7 @@ do
         # Check if ban is old
         if [ $ipTime -le $oldTime ]
         then
-            echo "Removed ban on: "$ipAdress >> ipaddresses.txt
+            echo "--> Removed ban on: "$ipAdress >> ipaddresses.txt
             iptables -D INPUT -s $ipAdress -j DROP
             eval $(sed -i "/$lineNum/d" miniban.db)
         fi

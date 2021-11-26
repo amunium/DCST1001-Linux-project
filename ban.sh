@@ -1,22 +1,23 @@
+#!/bin/bash
+
 # Denne kalles med en ipadresse som skal bli bannet som argument (sjekk "calling bash file with argument") og lagrer dette med timestamp i database.db
 # $1 er ipadressen som skal bli bannet
 
 
 # Check if whitelist.db containes ip
-white = false
+white=false
 whitelist="whitelist.db"
-
 while read line
 do
-    if [ $line = $1 ]
+    if [ "$line" == "$1" ]
     then
         #Say that it is indeed whitelisted
         echo "--> Ban failed. $1 is whitelisted" >> ipaddresses.txt
-        white = true
+        white=true
     fi
-then < whitelist
+done < $whitelist
 
-if [ white = false ]
+if [ $white = false ]
 then
     # If ip not whitelisted, will be banned.
     #Ban ip address using iptables
