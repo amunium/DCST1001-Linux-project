@@ -2,11 +2,12 @@
 
 clear
 
-# When killed will kill all child processes and delete tempfile
+# When killed will kill all child processes and delete tempfiles
 trap finish EXIT
 
 function finish {
 	rm -rf "ipaddresses.txt"
+    rm -rf "lockfile.lck"
 	kill 0
 }
 
