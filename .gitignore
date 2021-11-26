@@ -2,6 +2,6 @@ database.db
 miniban.db
 *.db
 whitelist.db
-# ipaddresses.txt
-# journal.txt
-# lockfile.lck
+ipaddresses.txt
+journal.txt
+lockfile.lck
