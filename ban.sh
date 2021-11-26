@@ -4,15 +4,17 @@
 
 # Check if whitelist.db containes ip
 white = false
+whitelist="whitelist.db"
+
 while read line
 do
     if [ $line = $1 ]
     then
         #Say that it is indeed whitelisted
-        echo "--> Ban failed. $1 is whitelisted" >> journal.txt
+        echo "--> Ban failed. $1 is whitelisted" >> ipaddresses.txt
         white = true
     fi
-then
+then < whitelist
 
 if [ white = false ]
 then

@@ -26,7 +26,7 @@ do
         # Check if ban is old
         if [ $ipTime -le $oldTime ]
         then
-            echo "Removed ban on: "$ipAdress >> journal.txt
+            echo "Removed ban on: "$ipAdress >> ipaddresses.txt
             iptables -D INPUT -s $ipAdress -j DROP
             eval $(sed -i "/$lineNum/d" miniban.db)
         fi
