@@ -33,11 +33,9 @@ do
             iptables -D INPUT -s $ipAdress -j DROP
             #TODO remove from database
             eval $(sed -i "/$lineNum/d" miniban.db)
-
         fi
         lineNum=$((lineNum+1))
     done < $database
-
     # Waits some time
     sleep 3
 done

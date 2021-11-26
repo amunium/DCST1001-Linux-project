@@ -10,7 +10,7 @@ echo $1","$(date +%s) >> miniban.db
 #report completed banning and exit without error
 echo "New IP banned: "$1
 
-echo "Reporting on banned ip addresses:"
+echo "Reporting on all currently banned ip addresses:"
 iptables -L INPUT -v -n
 
 exit 0
